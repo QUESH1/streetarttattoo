@@ -387,40 +387,40 @@
     });
   }
 
-  /* ---------------- lazy-load video sources ---------------- */
-  function lazyLoadVideo(video, threshold) {
-    if (!video) return;
-    const sources = video.querySelectorAll("source[data-src]");
+  /* ---------------- lazy-load + play the bastidores video ----------------
+     Um único observer: na primeira vez que o vídeo entra em tela, troca a
+     fonte e só chama play() quando o vídeo sinaliza que já tem dados pra
+     reproduzir (evento loadeddata) — chamar play() antes disso falha
+     silenciosamente e só "resolve" numa rolagem seguinte. */
+  const experienceVideo = document.getElementById("experienceVideo");
+  if (experienceVideo) {
+    const sources = experienceVideo.querySelectorAll("source[data-src]");
+    let sourceLoaded = false;
+
+    const tryPlay = () => experienceVideo.play().catch(() => {});
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            sources.forEach((s) => {
-              s.src = s.getAttribute("data-src");
-            });
-            video.load();
-            io.unobserve(video);
+          if (!entry.isIntersecting) {
+            experienceVideo.pause();
+            return;
           }
-        });
-      },
-      { threshold: threshold || 0.2 }
-    );
-    io.observe(video);
-  }
-
-  const experienceVideo = document.getElementById("experienceVideo");
-  if (experienceVideo) {
-    lazyLoadVideo(experienceVideo, 0.2);
-    const playObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) experienceVideo.play().catch(() => {});
-          else experienceVideo.pause();
+          if (sourceLoaded) {
+            tryPlay();
+            return;
+          }
+          sourceLoaded = true;
+          sources.forEach((s) => {
+            s.src = s.getAttribute("data-src");
+          });
+          experienceVideo.addEventListener("loadeddata", tryPlay, { once: true });
+          experienceVideo.load();
         });
       },
       { threshold: 0.15 }
     );
-    playObserver.observe(experienceVideo);
+    io.observe(experienceVideo);
   }
 
   /* ---------------- whatsapp / instagram link wiring ---------------- */
