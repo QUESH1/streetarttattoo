@@ -1089,6 +1089,28 @@ ul {
   margin-top: 14px;
   max-width: 56ch;
 }
+.contato-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.contato-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--offwhite);
+  padding: 10px;
+  border-radius: 4px;
+  transform: rotate(3deg);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+  flex-shrink: 0;
+}
+.contato-logo img {
+  width: clamp(56px, 8vw, 90px);
+  height: clamp(56px, 8vw, 90px);
+}
 .contato-grid {
   display: flex;
   flex-wrap: wrap;
@@ -1166,6 +1188,13 @@ ul {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
+}
+.footer-credit {
+  font-family: var(--font-tag);
+  font-size: 11px;
+  color: var(--dim);
+  opacity: 0.55;
+  transform: rotate(-2deg);
 }
 
 /* ---------- reveal on scroll ---------- */

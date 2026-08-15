@@ -164,14 +164,16 @@ const INSTAGRAM_POSTS = [
 const SITE = {
   instagramHandle: "@street_art.tattoo",
   instagramUrl: "https://www.instagram.com/street_art.tattoo/",
-  /* TODO: confirmar número real de WhatsApp (formato: 55DDDNUMERO, só dígitos) */
-  whatsappNumber: "5500000000000",
+  whatsappNumber: "5531982376982",
   whatsappMessage: "Olá! Vim pelo site e quero um orçamento de tatuagem/piercing.",
-  /* TODO: confirmar endereço real do estúdio */
   address: {
-    street: "Endereço a confirmar",
-    locality: "Cidade a confirmar",
-    region: "UF",
+    street: "R. Ceará, 621 - Santa Efigênia",
+    locality: "Belo Horizonte",
+    region: "MG",
+    postalCode: "30150-312",
     country: "BR",
+    full: "R. Ceará, 621 - Santa Efigênia, Belo Horizonte - MG, 30150-312",
+    mapsUrl:
+      "https://www.google.com/maps/place/StreetArt+Tattoo/@-19.9266166,-43.9267531,21z/data=!4m15!1m8!3m7!1s0xa699ecf9e3d173:0x29b424a6465cc017!2sR.+Cear%C3%A1,+621+-+Santa+Efig%C3%AAnia,+Belo+Horizonte+-+MG,+30150-312!3b1!8m2!3d-19.9265445!4d-43.9267018!16s%2Fg%2F11xd4c0d2z!3m5!1s0xa699686b9c39db:0x313d90b044a17bb3!8m2!3d-19.9265663!4d-43.9267422!16s%2Fg%2F11s4bn3ltj?entry=ttu&g_ep=EgoyMDI2MDgxMi4wIKXMDSoASAFQAw%3D%3D",
   },
 };

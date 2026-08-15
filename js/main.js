@@ -434,6 +434,10 @@
   document.querySelectorAll("[data-instagram]").forEach((a) => {
     a.href = SITE.instagramUrl;
   });
+  document.querySelectorAll("[data-address-link]").forEach((a) => {
+    a.href = SITE.address.mapsUrl;
+    a.textContent = SITE.address.full;
+  });
 
   /* ---------------- init ---------------- */
   renderFilters();

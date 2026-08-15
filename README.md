@@ -35,8 +35,6 @@ Para trocar por uma foto real:
 
 ## Pendências antes de publicar
 
-- Confirmar telefone/WhatsApp e endereço reais (marcados como "TODO" em
-  `index.html` e `js/data.js`)
 - Trocar `SEU-DOMINIO-AQUI.com` pelo domínio real (meta tags de SEO/OG)
 - Adicionar fotos reais do studio, tatuagens e piercings
 
