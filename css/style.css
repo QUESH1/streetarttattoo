@@ -929,16 +929,14 @@ ul {
   justify-content: center;
 }
 
-/* ---------- experience (bastidores) ---------- */
+/* ---------- experience (bastidores) + studio gallery ----------
+   O vídeo de bastidores é o fundo contínuo de toda a seção, ligando os
+   bastidores ao espaço físico (galeria) logo abaixo — um único bloco
+   visual, não duas seções desconectadas. */
 .experience {
   position: relative;
-  min-height: 82vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  padding: var(--pad-y) var(--pad-x);
-  cursor: pointer;
+  padding: 0;
 }
 .experience-video {
   position: absolute;
@@ -950,7 +948,7 @@ ul {
 .experience-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(14, 13, 12, 0.6) 0%, rgba(14, 13, 12, 0.35) 50%, rgba(14, 13, 12, 0.75) 100%);
+  background: linear-gradient(180deg, rgba(14, 13, 12, 0.5) 0%, rgba(14, 13, 12, 0.74) 34%, rgba(14, 13, 12, 0.92) 100%);
 }
 .experience-content {
   position: relative;
@@ -959,9 +957,14 @@ ul {
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  padding: clamp(64px, 12vw, 140px) var(--pad-x) clamp(40px, 8vw, 72px);
 }
 .experience-content .eyebrow::before {
   display: none;
+}
+.gallery-wrap {
+  position: relative;
+  padding: 0 var(--pad-x) var(--pad-y);
 }
 
 /* ---------- studio gallery ---------- */

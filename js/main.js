@@ -409,7 +409,6 @@
   }
 
   const experienceVideo = document.getElementById("experienceVideo");
-  const experienceSection = document.getElementById("experiencia");
   if (experienceVideo) {
     lazyLoadVideo(experienceVideo, 0.2);
     const playObserver = new IntersectionObserver(
@@ -419,22 +418,9 @@
           else experienceVideo.pause();
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.15 }
     );
     playObserver.observe(experienceVideo);
-
-    if (experienceSection) {
-      const updateCursor = () => {
-        experienceSection.setAttribute("data-cursor", experienceVideo.paused ? "Play" : "Pause");
-      };
-      experienceVideo.addEventListener("play", updateCursor);
-      experienceVideo.addEventListener("pause", updateCursor);
-      experienceSection.addEventListener("click", (e) => {
-        if (e.target.closest("a, button")) return;
-        if (experienceVideo.paused) experienceVideo.play().catch(() => {});
-        else experienceVideo.pause();
-      });
-    }
   }
 
   /* ---------------- whatsapp / instagram link wiring ---------------- */

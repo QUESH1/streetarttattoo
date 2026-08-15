@@ -166,8 +166,10 @@
     </div>
   </section>
 
-  <!-- EXPERIÊNCIA / BASTIDORES -->
-  <section class="section experience" id="experiencia" data-cursor="Play">
+  <!-- EXPERIÊNCIA / BASTIDORES + GALERIA DO STUDIO — o vídeo de bastidores
+       é o fundo contínuo por trás de toda a seção, ligando os bastidores
+       ao espaço físico mostrado logo abaixo. -->
+  <section class="section experience" id="galeria">
     <video class="experience-video" id="experienceVideo" muted loop playsinline preload="none" aria-hidden="true">
       <source data-src="videos/bastidores.mp4" type="video/mp4">
     </video>
@@ -176,15 +178,13 @@
       <span class="eyebrow">/ Bastidores</span>
       <h2 class="section-title">Dentro do Studio</h2>
     </div>
-  </section>
-
-  <!-- GALERIA DO STUDIO -->
-  <section class="section gallery" id="galeria">
-    <div class="section-head reveal">
-      <span class="eyebrow">/ Galeria</span>
-      <h2 class="section-title">O Espaço</h2>
+    <div class="gallery-wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">/ Galeria</span>
+        <h2 class="section-title">O Espaço</h2>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
     </div>
-    <div class="gallery-grid" id="galleryGrid"></div>
   </section>
 
   <!-- FROM THE STREET — INSTAGRAM -->
