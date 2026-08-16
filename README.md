@@ -35,9 +35,19 @@ Para trocar por uma foto real:
    `image: "images/portfolio/blackwork-01.jpg"`.
 3. Pronto — o item passa a exibir a foto real automaticamente.
 
-## Pendências antes de publicar
+## Publicação
 
-- Trocar `SEU-DOMINIO-AQUI.com` pelo domínio real (meta tags de SEO/OG)
+O site está hospedado via GitHub Pages em
+https://quesh1.github.io/streetarttattoo/ — publicado a partir de um
+branch `main` com histórico próprio (apenas o commit de publicação), para
+manter o histórico de desenvolvimento fora do repositório público.
+
+Se o studio adquirir um domínio próprio, basta criar um arquivo `CNAME` na
+raiz com o domínio, configurar o DNS, e trocar as URLs de
+`canonical`/`og:`/`twitter:`/JSON-LD em `index.html` pelo domínio real.
+
+## Pendências
+
 - Adicionar fotos reais do studio, tatuagens e piercings
 
 ## Desenvolvimento local
