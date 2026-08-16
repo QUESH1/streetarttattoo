@@ -119,22 +119,6 @@
     window.addEventListener("pageshow", () => {
       if (heroVideoEl.paused) tryPlayHero();
     });
-
-    /* No iOS Safari com Modo de Baixo Consumo ativo, o sistema bloqueia
-       qualquer autoplay — mesmo mudo/playsinline — até um gesto real do
-       usuário. Destrava assim que a pessoa tocar, rolar ou clicar. */
-    let heroUnlocked = false;
-    const unlockHero = () => {
-      if (heroUnlocked) return;
-      heroUnlocked = true;
-      tryPlayHero();
-      ["touchstart", "touchend", "click", "scroll", "keydown"].forEach((evt) =>
-        document.removeEventListener(evt, unlockHero)
-      );
-    };
-    ["touchstart", "touchend", "click", "scroll", "keydown"].forEach((evt) =>
-      document.addEventListener(evt, unlockHero, { passive: true })
-    );
   }
 
   /* ---------------- hero video subtle parallax ---------------- */
@@ -432,6 +416,7 @@
      reproduzir (evento loadeddata) — chamar play() antes disso falha
      silenciosamente e só "resolve" numa rolagem seguinte. */
   const experienceVideo = document.getElementById("experienceVideo");
+  let experienceVisible = false;
   if (experienceVideo) {
     const sources = experienceVideo.querySelectorAll("source[data-src]");
     let sourceLoaded = false;
@@ -442,9 +427,11 @@
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) {
+            experienceVisible = false;
             experienceVideo.pause();
             return;
           }
+          experienceVisible = true;
           if (sourceLoaded) {
             tryPlay();
             return;
@@ -461,6 +448,25 @@
     );
     io.observe(experienceVideo);
   }
+
+  /* ---------------- destrava autoplay dos vídeos de fundo no iOS ----------------
+     Com o Modo de Baixo Consumo ativo, o iOS bloqueia autoplay (mesmo mudo)
+     até um gesto real do usuário — e cada vídeo pode precisar do seu próprio
+     gesto, não só o primeiro da página inteira (o hero pode já ter "gasto"
+     o primeiro toque antes do vídeo de bastidores sequer entrar em tela).
+     Por isso o listener fica ativo a cada interação, não só uma vez. */
+  function resumeBackgroundVideos() {
+    if (heroVideoEl && heroVideoEl.paused) {
+      heroVideoEl.muted = true;
+      heroVideoEl.play().catch(() => {});
+    }
+    if (experienceVideo && experienceVisible && experienceVideo.paused) {
+      experienceVideo.play().catch(() => {});
+    }
+  }
+  ["touchstart", "touchend", "click", "scroll", "keydown"].forEach((evt) =>
+    document.addEventListener(evt, resumeBackgroundVideos, { passive: true })
+  );
 
   /* ---------------- whatsapp / instagram link wiring ---------------- */
   function buildWhatsappUrl() {
