@@ -98,6 +98,29 @@
     document.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
   }
 
+  /* ---------------- hero video autoplay reforçado (mobile) ----------------
+     O atributo autoplay+muted+playsinline já cobre a maioria dos navegadores,
+     mas em vários browsers mobile (Safari iOS, WebViews Android) o autoplay
+     nativo falha silenciosamente ou o vídeo é pausado pelo sistema ao trocar
+     de app/aba e não retoma sozinho. Forçamos o play() via JS e reagimos a
+     esses eventos para o vídeo nunca ficar "congelado" na primeira tela. */
+  const heroVideoEl = document.querySelector(".hero-video");
+  if (heroVideoEl) {
+    const tryPlayHero = () => {
+      heroVideoEl.muted = true;
+      const p = heroVideoEl.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    };
+    tryPlayHero();
+    heroVideoEl.addEventListener("loadeddata", tryPlayHero);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && heroVideoEl.paused) tryPlayHero();
+    });
+    window.addEventListener("pageshow", () => {
+      if (heroVideoEl.paused) tryPlayHero();
+    });
+  }
+
   /* ---------------- hero video subtle parallax ---------------- */
   const heroVideo = document.querySelector(".hero-video");
   const hero = document.querySelector(".hero");
