@@ -14,8 +14,10 @@ via GitHub Pages ou qualquer servidor estático.
   do studio). Edite este arquivo para adicionar/remover itens — eles
   aparecem automaticamente no site, sem tocar em HTML/CSS.
 - `js/main.js` — comportamento (menu, cursor, filtros, lightbox, animações)
-- `images/` — imagens usadas pelo site (logo)
+- `images/` — imagens usadas pelo site (logo, `images/deco/` com os
+  respingos de spray/pichação usados como marca d'água decorativa)
 - `videos/` — vídeos usados pelo site (hero e bastidores)
+- `fonts/` — fonte Grapixoso (ver licença abaixo)
 
 ## Adicionando fotos reais
 
@@ -46,3 +48,7 @@ de build.
 ## Licença
 
 Todos os direitos reservados — veja [LICENSE](LICENSE).
+
+A fonte [Grapixoso](https://www.1001fonts.com/grapixoso-font.html), de Rafael
+Castro, é distribuída sob CC BY-ND (livre para uso comercial, com atribuição
+ao autor).

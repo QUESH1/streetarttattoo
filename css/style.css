@@ -23,12 +23,23 @@
   --font-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-tag: "Permanent Marker", cursive;
   --font-stencil: "Anton", var(--font-sans);
+  --font-street: "Grapixoso", var(--font-tag);
 
   --pad-x: clamp(20px, 6vw, 64px);
   --pad-y: clamp(56px, 10vw, 120px);
   --radius: 2px;
 
   --ease: cubic-bezier(0.22, 0.8, 0.28, 1);
+}
+
+/* Grapixoso — tipografia de pichação brasileira, Rafael Castro (CC BY-ND,
+   livre para uso comercial). Usada só em flashes decorativos curtos: a
+   pichação de rua é propositalmente difícil de ler rápido, então nunca vai
+   em menu, botão ou texto que precise ser lido de cara. */
+@font-face {
+  font-family: "Grapixoso";
+  src: url("../fonts/Grapixoso-Regular.ttf") format("truetype");
+  font-display: swap;
 }
 
 /* ---------- reset ---------- */
@@ -133,22 +144,38 @@ ul {
   pointer-events: none;
   z-index: 1;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-position: center;
+  background-size: contain;
 }
+/* respingos de spray/pichação reais (desenhados à mão pelo studio),
+   pré-tintados na cor da marca — ver images/deco/README no repo de origem */
 .deco-splatter {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='%23e0a93c'%3E%3Ccircle cx='100' cy='90' r='42'/%3E%3Ccircle cx='58' cy='124' r='15'/%3E%3Ccircle cx='150' cy='128' r='10'/%3E%3Ccircle cx='134' cy='56' r='8'/%3E%3Ccircle cx='36' cy='66' r='6'/%3E%3Ccircle cx='164' cy='92' r='5'/%3E%3Ccircle cx='84' cy='34' r='4'/%3E%3Cpath d='M96,130 q-6,28 -2,44 q8,-2 8,-18 q4,14 10,18 q4,-20 -6,-44z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("../images/deco/borrao-gold.png");
+}
+.deco-splatter-soft {
+  background-image: url("../images/deco/borrao-2-gold.png");
+}
+.deco-splatter-big {
+  background-image: url("../images/deco/borrao-3-gold.png");
+}
+.deco-drip {
+  background-image: url("../images/deco/borrao-escorrendo-gold.png");
+}
+.deco-zigzag {
+  background-image: url("../images/deco/zigzag-gold.png");
+}
+.deco-star {
+  background-image: url("../images/deco/estrela-gold.png");
+}
+.deco-bang {
+  background-image: url("../images/deco/bang-gold.png");
 }
 .deco-circle {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 140' fill='none'%3E%3Cpath d='M20,70 C20,25 80,8 150,10 C230,12 280,35 278,72 C276,110 210,130 145,128 C70,126 22,108 24,68' stroke='%23e0a93c' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M30,65 C35,30 90,15 155,16 C225,17 265,38 260,68' stroke='%23e0a93c' stroke-width='4' stroke-linecap='round' opacity='.6'/%3E%3C/svg%3E");
-}
-.deco-underline {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 24' fill='none'%3E%3Cpath d='M4,14 Q40,4 80,14 T160,12 T236,16' stroke='%23e0a93c' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
-}
-.deco-drip {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 54' fill='%23e0a93c'%3E%3Cpath d='M5,0 h6 v26 c5,3 6,10 1,15 c-5,5 -12,-1 -8,-8 c2,-3 1,-4 1,-7z'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
 }
 .deco-tag {
-  font-family: var(--font-tag);
+  font-family: var(--font-street);
   color: var(--accent);
   white-space: nowrap;
   line-height: 1;
@@ -801,8 +828,9 @@ ul {
   max-width: 46ch;
 }
 .studio-quote {
-  font-family: var(--font-tag);
-  font-size: 19px;
+  font-family: var(--font-street);
+  font-size: 22px;
+  letter-spacing: 0.02em;
   color: var(--accent);
   transform: rotate(-1deg);
   margin-top: 4px;
@@ -810,9 +838,9 @@ ul {
 .studio-deco-splatter {
   bottom: 4%;
   right: 2%;
-  width: 170px;
-  height: 170px;
-  opacity: 0.12;
+  width: 190px;
+  height: 190px;
+  opacity: 0.3;
   transform: rotate(-10deg);
 }
 
@@ -857,9 +885,9 @@ ul {
 .portfolio-deco-splatter {
   top: 4px;
   right: 2%;
-  width: 130px;
-  height: 130px;
-  opacity: 0.14;
+  width: 170px;
+  height: 170px;
+  opacity: 0.32;
   transform: rotate(18deg);
 }
 
@@ -1028,6 +1056,14 @@ ul {
   opacity: 0.8;
   transform: rotate(-4deg);
 }
+.piercing-deco-zigzag {
+  top: 2%;
+  right: 4%;
+  width: 100px;
+  height: 110px;
+  opacity: 0.32;
+  transform: rotate(8deg);
+}
 
 /* ---------- experience (bastidores) + studio gallery ----------
    O vídeo de bastidores é o fundo contínuo de toda a seção, ligando os
@@ -1127,6 +1163,14 @@ ul {
   opacity: 0.75;
   transform: rotate(8deg);
 }
+.instagram-deco-star {
+  top: -6px;
+  left: 1%;
+  width: 46px;
+  height: 46px;
+  opacity: 0.5;
+  transform: rotate(-10deg);
+}
 
 /* ---------- instagram ---------- */
 .instagram {
@@ -1216,9 +1260,9 @@ ul {
 .contato-deco-splatter {
   top: 6%;
   right: 6%;
-  width: 220px;
-  height: 220px;
-  opacity: 0.16;
+  width: 240px;
+  height: 240px;
+  opacity: 0.32;
   transform: rotate(12deg);
 }
 .contato-deco-drip {
@@ -1291,8 +1335,9 @@ ul {
 }
 .footer-tag {
   position: relative;
-  font-family: var(--font-tag);
-  font-size: 24px;
+  font-family: var(--font-street);
+  font-size: 28px;
+  letter-spacing: 0.03em;
   color: var(--accent);
   transform: rotate(-3deg);
   opacity: 0.9;
