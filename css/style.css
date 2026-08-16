@@ -56,6 +56,10 @@ html {
 body {
   margin: 0;
   background: var(--black);
+  background-image: radial-gradient(ellipse 60% 40% at 15% -6%, rgba(224, 169, 60, 0.07), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 100% 108%, rgba(224, 169, 60, 0.05), transparent 55%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--offwhite);
   font-family: var(--font-sans);
   font-size: 16px;
@@ -98,7 +102,7 @@ ul {
   inset: 0;
   z-index: 90;
   pointer-events: none;
-  opacity: 0.045;
+  opacity: 0.085;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -239,6 +243,7 @@ ul {
   line-height: 0.96;
   letter-spacing: 0.01em;
   color: var(--offwhite);
+  text-shadow: 4px 4px 0 rgba(224, 169, 60, 0.3);
   margin: 10px 0 0;
 }
 .section-head {
@@ -249,7 +254,30 @@ ul {
 }
 .section {
   position: relative;
+  z-index: 0;
   padding: var(--pad-y) var(--pad-x);
+}
+
+/* tag de fundo gigante em Grapixoso — a mesma pichação escondida atrás do
+   texto, como uma parede que já tinha marca antes do estúdio chegar.
+   z-index negativo + o stacking context criado por .section acima garante
+   que ela fica sempre atrás do conteúdo real, nunca por cima. */
+.tag-watermark {
+  position: absolute;
+  z-index: -1;
+  font-family: var(--font-street);
+  color: var(--accent);
+  line-height: 0.8;
+  white-space: nowrap;
+  opacity: 0.09;
+  pointer-events: none;
+  user-select: none;
+  font-size: clamp(90px, 17vw, 260px);
+}
+@media (max-width: 640px) {
+  .tag-watermark {
+    display: none;
+  }
 }
 
 .btn {
@@ -544,6 +572,7 @@ ul {
 /* ---------- hero ---------- */
 .hero {
   position: relative;
+  z-index: 0;
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
@@ -668,6 +697,19 @@ ul {
   }
   50% {
     transform: translateY(8px);
+  }
+}
+.hero-deco-splatter {
+  top: 14%;
+  left: 3%;
+  width: 150px;
+  height: 150px;
+  opacity: 0.22;
+  transform: rotate(-14deg);
+}
+@media (max-width: 880px) {
+  .hero-deco-splatter {
+    display: none;
   }
 }
 .hero-edge {
@@ -840,8 +882,13 @@ ul {
   right: 2%;
   width: 190px;
   height: 190px;
-  opacity: 0.3;
+  opacity: 0.34;
   transform: rotate(-10deg);
+}
+.studio-tag {
+  top: -3%;
+  right: 4%;
+  transform: rotate(-6deg);
 }
 
 @media (max-width: 880px) {
@@ -887,8 +934,22 @@ ul {
   right: 2%;
   width: 170px;
   height: 170px;
-  opacity: 0.32;
+  opacity: 0.36;
   transform: rotate(18deg);
+}
+.portfolio-deco-drip {
+  top: 2%;
+  left: 3%;
+  width: 12px;
+  height: 32px;
+  opacity: 0.7;
+  transform: rotate(6deg);
+}
+.portfolio-tag {
+  top: -2%;
+  left: 1%;
+  transform: rotate(4deg);
+  font-size: clamp(80px, 15vw, 220px);
 }
 
 /* ---------- portfolio grid ---------- */
@@ -1064,6 +1125,11 @@ ul {
   opacity: 0.32;
   transform: rotate(8deg);
 }
+.piercing-tag {
+  bottom: -5%;
+  right: 3%;
+  transform: rotate(-5deg);
+}
 
 /* ---------- experience (bastidores) + studio gallery ----------
    O vídeo de bastidores é o fundo contínuo de toda a seção, ligando os
@@ -1101,6 +1167,14 @@ ul {
 .gallery-wrap {
   position: relative;
   padding: 0 var(--pad-x) var(--pad-y);
+}
+.gallery-deco-star {
+  top: -8px;
+  right: 5%;
+  width: 52px;
+  height: 52px;
+  opacity: 0.5;
+  transform: rotate(12deg);
 }
 
 /* ---------- studio gallery ---------- */
@@ -1170,6 +1244,11 @@ ul {
   height: 46px;
   opacity: 0.5;
   transform: rotate(-10deg);
+}
+.instagram-tag {
+  top: -4%;
+  left: 2%;
+  transform: rotate(6deg);
 }
 
 /* ---------- instagram ---------- */
@@ -1264,6 +1343,12 @@ ul {
   height: 240px;
   opacity: 0.32;
   transform: rotate(12deg);
+}
+.contato-tag {
+  bottom: -6%;
+  right: 1%;
+  transform: rotate(-4deg);
+  font-size: clamp(80px, 16vw, 220px);
 }
 .contato-deco-drip {
   top: 100%;
