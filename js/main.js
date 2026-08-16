@@ -119,6 +119,22 @@
     window.addEventListener("pageshow", () => {
       if (heroVideoEl.paused) tryPlayHero();
     });
+
+    /* No iOS Safari com Modo de Baixo Consumo ativo, o sistema bloqueia
+       qualquer autoplay — mesmo mudo/playsinline — até um gesto real do
+       usuário. Destrava assim que a pessoa tocar, rolar ou clicar. */
+    let heroUnlocked = false;
+    const unlockHero = () => {
+      if (heroUnlocked) return;
+      heroUnlocked = true;
+      tryPlayHero();
+      ["touchstart", "touchend", "click", "scroll", "keydown"].forEach((evt) =>
+        document.removeEventListener(evt, unlockHero)
+      );
+    };
+    ["touchstart", "touchend", "click", "scroll", "keydown"].forEach((evt) =>
+      document.addEventListener(evt, unlockHero, { passive: true })
+    );
   }
 
   /* ---------------- hero video subtle parallax ---------------- */
