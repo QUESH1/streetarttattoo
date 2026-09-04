@@ -55,13 +55,16 @@
   }
 
   /* ---------------- mobile "ver mais" grid collapse ----------------
-     No mobile, mede a altura real do grid e, se sobrar conteúdo além de
-     --collapse-h, corta com blur + botão "Ver Mais" (ver CSS). Uma vez
-     expandido pelo usuário, fica expandido (não recolhe de novo sozinho). */
+     No mobile, mostra sempre pelo menos minItems itens inteiros e corta o
+     resto com blur + botão "Ver Mais" (ver CSS) — a altura de corte é
+     calculada a partir da posição real do item minItems (não um valor fixo
+     em px), então continua mostrando pelo menos minItems itens completos
+     em qualquer tamanho de tela. Uma vez expandido pelo usuário, fica
+     expandido (não recolhe de novo sozinho). */
   const collapseMQ = window.matchMedia("(max-width: 640px)");
   let portfolioCollapse = null;
   let piercingCollapse = null;
-  function setupGridCollapse(wrapId, btnId) {
+  function setupGridCollapse(wrapId, btnId, minItems) {
     const wrap = document.getElementById(wrapId);
     const btn = document.getElementById(btnId);
     const grid = wrap && wrap.firstElementChild;
@@ -72,9 +75,13 @@
         wrap.classList.remove("is-collapsed");
         return;
       }
-      const limit = parseInt(getComputedStyle(wrap).getPropertyValue("--collapse-h"), 10) || 600;
       wrap.classList.remove("is-collapsed");
-      wrap.classList.toggle("is-collapsed", grid.scrollHeight > limit + 60);
+      const items = Array.from(grid.children).filter((c) => !c.classList.contains("is-hidden"));
+      if (items.length <= minItems) return;
+      const nth = items[minItems - 1];
+      const limit = nth.offsetTop + nth.offsetHeight;
+      wrap.style.setProperty("--collapse-h", limit + "px");
+      wrap.classList.toggle("is-collapsed", grid.scrollHeight > limit + 40);
     }
     btn.addEventListener("click", () => {
       expanded = true;
@@ -340,6 +347,6 @@
   renderArtists();
   renderGallery();
   renderInstagram();
-  portfolioCollapse = setupGridCollapse("portfolioGridWrap", "portfolioMoreBtn");
-  piercingCollapse = setupGridCollapse("piercingGridWrap", "piercingMoreBtn");
+  portfolioCollapse = setupGridCollapse("portfolioGridWrap", "portfolioMoreBtn", 3);
+  piercingCollapse = setupGridCollapse("piercingGridWrap", "piercingMoreBtn", 3);
 })();
