@@ -28,6 +28,7 @@ const TATTOOS = [
     image: null,
     images: [],
     date: "2026",
+    artist: "joao-rua",
   },
   {
     id: "tt-02",
@@ -37,6 +38,7 @@ const TATTOOS = [
     image: null,
     images: [],
     date: "2026",
+    artist: "joao-rua",
   },
   {
     id: "tt-03",
@@ -46,6 +48,7 @@ const TATTOOS = [
     image: null,
     images: [],
     date: "2025",
+    artist: "mari-concreto",
   },
   {
     id: "tt-04",
@@ -55,6 +58,7 @@ const TATTOOS = [
     image: null,
     images: [],
     date: "2025",
+    artist: "duda-spray",
   },
   {
     id: "tt-05",
@@ -64,6 +68,7 @@ const TATTOOS = [
     image: null,
     images: [],
     date: "2025",
+    artist: "mari-concreto",
   },
   {
     id: "tt-06",
@@ -73,6 +78,7 @@ const TATTOOS = [
     image: null,
     images: [],
     date: "2025",
+    artist: "duda-spray",
   },
   {
     id: "tt-07",
@@ -82,6 +88,7 @@ const TATTOOS = [
     image: null,
     images: [],
     date: "2025",
+    artist: null,
   },
   {
     id: "tt-08",
@@ -91,6 +98,7 @@ const TATTOOS = [
     image: null,
     images: [],
     date: "2024",
+    artist: null,
   },
 ];
 
@@ -101,6 +109,7 @@ const PIERCINGS = [
     type: "Cartilagem — orelha",
     description: "Perfuração em titânio ASTM F-136, procedimento com agulha estéril descartável.",
     image: null,
+    artist: "bia-aco",
   },
   {
     id: "pc-02",
@@ -108,6 +117,7 @@ const PIERCINGS = [
     type: "Nariz",
     description: "Um dos piercings mais versáteis, discreto ou marcante conforme a joia.",
     image: null,
+    artist: "bia-aco",
   },
   {
     id: "pc-03",
@@ -115,6 +125,7 @@ const PIERCINGS = [
     type: "Cartilagem — orelha",
     description: "Perfuração na dobra interna da cartilagem, alto impacto visual.",
     image: null,
+    artist: "bia-aco",
   },
   {
     id: "pc-04",
@@ -122,6 +133,7 @@ const PIERCINGS = [
     type: "Facial",
     description: "Curvatura marcada com curved barbell em titânio.",
     image: null,
+    artist: "bia-aco",
   },
   {
     id: "pc-05",
@@ -129,6 +141,7 @@ const PIERCINGS = [
     type: "Nariz",
     description: "O clássico piercing de narina, com joia fixa ou de rosca.",
     image: null,
+    artist: null,
   },
   {
     id: "pc-06",
@@ -136,6 +149,54 @@ const PIERCINGS = [
     type: "Cartilagem — orelha",
     description: "Duas perfurações unidas por uma barra reta, visual industrial marcante.",
     image: null,
+    artist: null,
+  },
+];
+
+/* Coletivo de artistas do studio. Cada um ganha uma página própria em
+   artista/<slug>/index.html (ver README, seção "Adicionando artistas") que
+   lê "slug" do atributo data-artist-slug no <body> daquele arquivo e busca
+   os dados aqui. "works" filtra TATTOOS/PIERCINGS pelo campo "artist". */
+const ARTISTS = [
+  {
+    id: "joao-rua",
+    slug: "joao-rua",
+    name: "João Rua",
+    role: "Tatuador",
+    specialties: ["Realismo", "Blackwork"],
+    bio: null,
+    photo: null,
+    instagram: null,
+  },
+  {
+    id: "mari-concreto",
+    slug: "mari-concreto",
+    name: "Mari Concreto",
+    role: "Tatuadora",
+    specialties: ["Fine Line", "Lettering"],
+    bio: null,
+    photo: null,
+    instagram: null,
+  },
+  {
+    id: "duda-spray",
+    slug: "duda-spray",
+    name: "Duda Spray",
+    role: "Tatuador",
+    specialties: ["Old School", "Color"],
+    bio: null,
+    photo: null,
+    instagram: null,
+  },
+  {
+    id: "bia-aco",
+    slug: "bia-aco",
+    name: "Bia Aço",
+    role: "Body Piercer",
+    specialties: ["Body Piercing"],
+    bio: null,
+    photo: null,
+    instagram: null,
   },
 ];
 
