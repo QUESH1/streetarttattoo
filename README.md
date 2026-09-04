@@ -35,6 +35,33 @@ Para trocar por uma foto real:
    `image: "images/portfolio/blackwork-01.jpg"`.
 3. Pronto — o item passa a exibir a foto real automaticamente.
 
+## Adicionando/editando artistas
+
+O studio tem uma aba "Artistas" (`#artistas` na home) com um card por
+artista, e cada um tem sua própria página em
+`artista/<slug>/index.html` — ex.: `streetarttattoo/artista/joao-rua/`.
+Não há build step nem geração automática dessas páginas, então adicionar
+um artista novo tem duas partes:
+
+1. **Dados** — em `js/data.js`, adicione um item ao array `ARTISTS`
+   (`id`, `slug`, `name`, `role`, `specialties`, `bio`, `photo`,
+   `instagram`). Use `bio: null` e `photo: null` para manter o placeholder
+   "em breve" até ter o texto/foto reais. Opcionalmente, marque quais
+   tatuagens/piercings são desse artista adicionando `artist: "<slug>"`
+   nos itens correspondentes de `TATTOOS`/`PIERCINGS` — isso faz esses
+   trabalhos aparecerem automaticamente na seção "Trabalhos" do perfil
+   dele.
+2. **Página** — crie a pasta `artista/<slug>/` e copie o `index.html` de
+   qualquer artista já existente (ex. `artista/joao-rua/index.html`) para
+   dentro dela. O conteúdo do perfil (nome, foto, bio, trabalhos) é
+   preenchido em tempo de execução por `js/artist.js`, a partir do
+   `data-artist-slug` no `<body>` — troque só esse atributo e os campos de
+   `<title>`/`<meta>` (description, canonical, og:*) pelo `slug`/nome
+   corretos do novo artista.
+
+Para remover um artista, apague a pasta `artista/<slug>/` e o item
+correspondente em `ARTISTS`.
+
 ## Publicação
 
 O site está hospedado via GitHub Pages em
