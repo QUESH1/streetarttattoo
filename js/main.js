@@ -59,9 +59,13 @@
      resto com blur + botão "Ver Mais" (ver CSS) — a altura de corte é
      calculada a partir da posição real do item minItems (não um valor fixo
      em px), então continua mostrando pelo menos minItems itens completos
-     em qualquer tamanho de tela. Uma vez expandido pelo usuário, fica
-     expandido (não recolhe de novo sozinho). */
+     em qualquer tamanho de tela. A altura do degradê (--fade-h, mesmo valor
+     do CSS) entra somada por cima, então o corte só desfoca o item
+     SEGUINTE aos minItems garantidos — os minItems ficam sempre 100%
+     nítidos, nunca com o rodapé cortado pelo blur. Uma vez expandido pelo
+     usuário, fica expandido (não recolhe de novo sozinho). */
   const collapseMQ = window.matchMedia("(max-width: 640px)");
+  const FADE_H = 190; // precisa bater com a altura de .grid-fade no CSS
   let portfolioCollapse = null;
   let piercingCollapse = null;
   function setupGridCollapse(wrapId, btnId, minItems) {
@@ -79,7 +83,7 @@
       const items = Array.from(grid.children).filter((c) => !c.classList.contains("is-hidden"));
       if (items.length <= minItems) return;
       const nth = items[minItems - 1];
-      const limit = nth.offsetTop + nth.offsetHeight;
+      const limit = nth.offsetTop + nth.offsetHeight + FADE_H;
       wrap.style.setProperty("--collapse-h", limit + "px");
       wrap.classList.toggle("is-collapsed", grid.scrollHeight > limit + 40);
     }
