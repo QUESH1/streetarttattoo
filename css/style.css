@@ -1105,11 +1105,6 @@ ul {
   line-height: 1.6;
   color: var(--muted);
 }
-.piercing-cta {
-  display: flex;
-  justify-content: center;
-}
-
 /* ---------- collapsible grids (mobile "ver mais") ----------
    No mobile, os grids de portfólio e piercing ficam bem longos. Em telas
    estreitas o JS mede a altura real e, se sobrar conteúdo, corta o grid em
@@ -1149,9 +1144,6 @@ ul {
   }
   .grid-fade-charcoal {
     background: linear-gradient(180deg, transparent, var(--charcoal) 76%);
-  }
-  #piercingGridWrap.is-collapsed ~ .piercing-cta {
-    display: none;
   }
 }
 .piercing-deco-drip {
