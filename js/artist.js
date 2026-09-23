@@ -124,4 +124,60 @@
       });
     }
   }
+
+  /* ---------------- cardápio de perfurações (só existe na página do Thales) ---------------- */
+  const menuList = document.getElementById("piercingMenuList");
+  if (menuList) {
+    PIERCING_MENU.forEach((item) => {
+      const price = el(
+        "span",
+        { class: "menu-price" },
+        item.price ? [document.createTextNode(item.price)] : [el("span", { class: "provisional-tag", text: "Valor a confirmar" })]
+      );
+      const row = el("li", { class: "menu-item" }, [
+        el("div", { class: "menu-item-head" }, [
+          el("span", { class: "menu-name", text: item.name }),
+          el("span", { class: "menu-region", text: item.region }),
+        ]),
+        price,
+      ]);
+      const whatsapp = el("a", {
+        class: "menu-whatsapp",
+        href: buildWhatsappUrl(`Olá! Vim pelo site e quero saber sobre o piercing ${item.name} com o Thales.`),
+        target: "_blank",
+        rel: "noopener",
+        text: "Perguntar no WhatsApp",
+      });
+      row.appendChild(whatsapp);
+      menuList.appendChild(row);
+    });
+  }
+
+  /* ---------------- catálogo de joias/produtos (só existe na página do Thales) ---------------- */
+  const productsGrid = document.getElementById("productsGrid");
+  if (productsGrid) {
+    PRODUCTS.forEach((product) => {
+      const img = el("img", {
+        src: product.image || placeholderImage(product.name, 640, 640),
+        alt: product.name,
+        loading: "lazy",
+        decoding: "async",
+      });
+      const body = el("div", { class: "product-body" }, [
+        el("span", { class: "product-name", text: product.name }),
+        el("span", { class: "provisional-tag", text: "Informações em atualização" }),
+        el("a", {
+          class: "btn btn-outline product-whatsapp",
+          href: buildWhatsappUrl(`Olá! Vim pelo site e tenho interesse no produto ${product.name}.`),
+          target: "_blank",
+          rel: "noopener",
+          text: "Tenho interesse",
+        }),
+      ]);
+      productsGrid.appendChild(el("article", { class: "product-card" }, [
+        el("div", { class: "product-frame" }, [img]),
+        body,
+      ]));
+    });
+  }
 })();

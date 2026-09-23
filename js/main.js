@@ -1,14 +1,16 @@
 /* ==========================================================================
    STREET ART TATTOO — comportamento da home
-   Filtros de portfólio, colapso "ver mais" no mobile, render dos dados
-   (data.js), grid de artistas, vídeo do hero e lazy-load do vídeo de
-   bastidores. Nav, menu, cursor, reveal e lightbox ficam em common.js
-   (compartilhado com as páginas de artista).
+   Colapso "ver mais" no mobile, render dos dados (data.js), grid de
+   artistas, destaque de piercing/Thales, eventos, vídeo do hero e
+   lazy-load do vídeo de bastidores. Nav, menu, cursor, reveal e lightbox
+   ficam em common.js (compartilhado com as páginas de artista). O
+   portfólio geral de tatuagens não existe mais aqui: cada artista mostra
+   seus próprios trabalhos na página dele (ver js/artist.js).
    ========================================================================== */
 (function () {
   "use strict";
 
-  const { el, placeholderImage, observeReveal, openLightbox } = window.STA;
+  const { el, placeholderImage, observeReveal, openLightbox, buildWhatsappUrl } = window.STA;
 
   /* ---------------- hero video autoplay reforçado (mobile) ----------------
      O atributo autoplay+muted+playsinline já cobre a maioria dos navegadores,
@@ -66,8 +68,6 @@
      usuário, fica expandido (não recolhe de novo sozinho). */
   const collapseMQ = window.matchMedia("(max-width: 640px)");
   const FADE_H = 190; // precisa bater com a altura de .grid-fade no CSS
-  let portfolioCollapse = null;
-  let piercingCollapse = null;
   function setupGridCollapse(wrapId, btnId, minItems) {
     const wrap = document.getElementById(wrapId);
     const btn = document.getElementById(btnId);
@@ -100,76 +100,28 @@
     return { evaluate };
   }
 
-  /* ---------------- filter bar + portfolio grid ---------------- */
-  const filterBar = document.getElementById("filterBar");
-  const portfolioGrid = document.getElementById("portfolioGrid");
-
-  function renderFilters() {
-    if (!filterBar) return;
-    CATEGORIES.forEach((cat) => {
-      const btn = el("button", {
-        class: "filter-btn" + (cat.id === "todos" ? " is-active" : ""),
-        type: "button",
-        "aria-pressed": cat.id === "todos" ? "true" : "false",
-        "data-filter": cat.id,
-        text: cat.label,
-      });
-      btn.addEventListener("click", () => applyFilter(cat.id));
-      filterBar.appendChild(btn);
-    });
-  }
-
-  function applyFilter(id) {
-    filterBar.querySelectorAll(".filter-btn").forEach((b) => {
-      const match = b.dataset.filter === id;
-      b.classList.toggle("is-active", match);
-      b.setAttribute("aria-pressed", match ? "true" : "false");
-    });
-    portfolioGrid.querySelectorAll(".tile").forEach((tile) => {
-      const show = id === "todos" || tile.dataset.category === id;
-      tile.classList.toggle("is-hidden", !show);
-      if (show) tile.classList.add("is-shown");
-    });
-    if (portfolioCollapse) portfolioCollapse.evaluate();
-  }
-
-  function renderPortfolio() {
-    if (!portfolioGrid) return;
-    TATTOOS.forEach((item) => {
-      const catLabel = (CATEGORIES.find((c) => c.id === item.category) || {}).label || item.category;
-      const img = el("img", {
-        src: item.image || placeholderImage(item.title, 640, 800),
-        alt: `${item.title} — ${catLabel}`,
-        loading: "lazy",
-        decoding: "async",
-      });
-      const info = el(
-        "div",
-        { class: "tile-info" },
-        [el("span", { class: "tile-cat", text: catLabel }), el("span", { class: "tile-title", text: item.title })]
+  /* ---------------- piercing spotlight (Thales) ---------------- */
+  function renderPiercingSpotlight() {
+    const photoEl = document.getElementById("piercingSpotlightPhoto");
+    const nameEl = document.getElementById("piercingSpotlightName");
+    const whatsappEl = document.getElementById("piercingSpotlightWhatsapp");
+    if (!photoEl && !nameEl && !whatsappEl) return;
+    const thales = ARTISTS.find((a) => a.slug === "thales");
+    if (!thales) return;
+    if (photoEl) {
+      photoEl.appendChild(
+        el("img", {
+          src: thales.photo || placeholderImage(thales.name, 640, 760),
+          alt: thales.name,
+          loading: "lazy",
+          decoding: "async",
+        })
       );
-      const frame = el(
-        "div",
-        {
-          class: "tile-frame",
-          tabindex: "0",
-          role: "button",
-          "aria-label": `Ver ${item.title}`,
-          "data-cursor": "View",
-        },
-        [img, el("div", { class: "tile-shade" }), info]
-      );
-      const tile = el("article", { class: "tile is-shown", "data-category": item.category }, [frame]);
-      const open = () => openLightbox(TATTOOS, TATTOOS.indexOf(item));
-      frame.addEventListener("click", open);
-      frame.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          open();
-        }
-      });
-      portfolioGrid.appendChild(tile);
-    });
+    }
+    if (nameEl) nameEl.textContent = thales.name;
+    if (whatsappEl) {
+      whatsappEl.href = buildWhatsappUrl(`Olá! Vim pelo site e gostaria de saber sobre piercing com o ${thales.name}.`);
+    }
   }
 
   /* ---------------- piercing grid ---------------- */
@@ -261,6 +213,47 @@
     observeReveal(galleryGrid.querySelectorAll(".g-item"));
   }
 
+  /* ---------------- eventos realizados ---------------- */
+  const eventsGrid = document.getElementById("eventsGrid");
+  function renderEvents() {
+    if (!eventsGrid) return;
+    EVENTS.forEach((item) => {
+      const img = el("img", {
+        src: item.image || placeholderImage(item.title, 640, 640),
+        alt: item.title,
+        loading: "lazy",
+        decoding: "async",
+      });
+      const body = el("div", { class: "event-body" }, [
+        el("span", { class: "event-type", text: item.type }),
+        el("span", { class: "event-title", text: item.title }),
+        el("span", { class: "provisional-tag", text: "Conteúdo provisório" }),
+      ]);
+      const frame = el(
+        "div",
+        {
+          class: "event-frame",
+          tabindex: "0",
+          role: "button",
+          "aria-label": `Ver ${item.title}`,
+          "data-cursor": "View",
+        },
+        [img, el("div", { class: "event-shade" })]
+      );
+      const card = el("article", { class: "event-card reveal" }, [frame, body]);
+      const open = () => openLightbox(EVENTS, EVENTS.indexOf(item));
+      frame.addEventListener("click", open);
+      frame.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          open();
+        }
+      });
+      eventsGrid.appendChild(card);
+    });
+    observeReveal(eventsGrid.querySelectorAll(".event-card"));
+  }
+
   /* ---------------- instagram grid ---------------- */
   const instagramGrid = document.getElementById("instagramGrid");
   function renderInstagram() {
@@ -345,12 +338,12 @@
   );
 
   /* ---------------- init ---------------- */
-  renderFilters();
-  renderPortfolio();
+  renderPiercingSpotlight();
   renderPiercing();
   renderArtists();
   renderGallery();
+  renderEvents();
   renderInstagram();
-  portfolioCollapse = setupGridCollapse("portfolioGridWrap", "portfolioMoreBtn", 3);
-  piercingCollapse = setupGridCollapse("piercingGridWrap", "piercingMoreBtn", 3);
+  setupGridCollapse("piercingGridWrap", "piercingMoreBtn", 3);
+  setupGridCollapse("eventsGridWrap", "eventsMoreBtn", 3);
 })();
