@@ -109,7 +109,7 @@ const PIERCINGS = [
     type: "Cartilagem — orelha",
     description: "Perfuração em titânio ASTM F-136, procedimento com agulha estéril descartável.",
     image: null,
-    artist: "bia-aco",
+    artist: "thales",
   },
   {
     id: "pc-02",
@@ -117,7 +117,7 @@ const PIERCINGS = [
     type: "Nariz",
     description: "Um dos piercings mais versáteis, discreto ou marcante conforme a joia.",
     image: null,
-    artist: "bia-aco",
+    artist: "thales",
   },
   {
     id: "pc-03",
@@ -125,7 +125,7 @@ const PIERCINGS = [
     type: "Cartilagem — orelha",
     description: "Perfuração na dobra interna da cartilagem, alto impacto visual.",
     image: null,
-    artist: "bia-aco",
+    artist: "thales",
   },
   {
     id: "pc-04",
@@ -133,7 +133,7 @@ const PIERCINGS = [
     type: "Facial",
     description: "Curvatura marcada com curved barbell em titânio.",
     image: null,
-    artist: "bia-aco",
+    artist: "thales",
   },
   {
     id: "pc-05",
@@ -189,15 +189,50 @@ const ARTISTS = [
     instagram: null,
   },
   {
-    id: "bia-aco",
-    slug: "bia-aco",
-    name: "Bia Aço",
+    id: "thales",
+    slug: "thales",
+    name: "Thales",
     role: "Body Piercer",
     specialties: ["Body Piercing"],
     bio: null,
     photo: null,
     instagram: null,
   },
+];
+
+/* Cardápio de perfurações do Thales (nome, região e valor). "price: null"
+   mantém o selo "valor a confirmar" até os preços reais serem informados —
+   nunca invente um valor aqui. */
+const PIERCING_MENU = [
+  { id: "pm-01", name: "Helix", region: "Cartilagem — orelha", price: null },
+  { id: "pm-02", name: "Septo", region: "Nariz", price: null },
+  { id: "pm-03", name: "Daith", region: "Cartilagem — orelha", price: null },
+  { id: "pm-04", name: "Sobrancelha", region: "Facial", price: null },
+  { id: "pm-05", name: "Nostril", region: "Nariz", price: null },
+  { id: "pm-06", name: "Industrial", region: "Cartilagem — orelha", price: null },
+];
+
+/* Catálogo visual de joias/produtos do Thales — sem carrinho, pagamento ou
+   estoque nesta etapa. "category", "price" e "description" ficam null até
+   os dados reais chegarem: nunca invente material, valor ou característica
+   de joia aqui. */
+const PRODUCTS = [
+  { id: "pr-01", name: "Joia de piercing", category: null, price: null, description: null, image: null },
+  { id: "pr-02", name: "Joia de piercing", category: null, price: null, description: null, image: null },
+  { id: "pr-03", name: "Joia de piercing", category: null, price: null, description: null, image: null },
+  { id: "pr-04", name: "Joia de piercing", category: null, price: null, description: null, image: null },
+];
+
+/* Eventos e projetos realizados no espaço (brechós, Flash Days, exposições,
+   música etc.) — títulos abaixo são placeholders por categoria, marcados
+   como provisórios na UI (ver .provisional-tag), sem datas ou detalhes
+   inventados. Substitua por eventos reais em "js/data.js" quando os
+   materiais chegarem (ver README, seção "Adicionando eventos"). */
+const EVENTS = [
+  { id: "ev-01", title: "Brechó StreetArt", type: "Brechó", date: null, description: null, image: null },
+  { id: "ev-02", title: "Flash Day", type: "Flash Day", date: null, description: null, image: null },
+  { id: "ev-03", title: "Exposição", type: "Exposição", date: null, description: null, image: null },
+  { id: "ev-04", title: "Música ao Vivo", type: "Música", date: null, description: null, image: null },
 ];
 
 /* type: "photo" ou "video" — para vídeo, use "src" (mp4) e "poster" opcional.

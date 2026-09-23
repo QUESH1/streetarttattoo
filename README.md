@@ -8,16 +8,34 @@ via GitHub Pages ou qualquer servidor estático.
 
 ## Estrutura
 
-- `index.html` — página única do site
+- `index.html` — página principal (apresentação, manifesto, artistas,
+  destaque de piercing, galeria do espaço, eventos, instagram e contato)
+- `artista/<slug>/index.html` — página própria de cada artista, incluindo
+  `artista/thales/` (perfil + cardápio de perfurações + catálogo de joias)
 - `css/style.css` — estilos
-- `js/data.js` — conteúdo (tatuagens, piercings, galeria, categorias, dados
-  do studio). Edite este arquivo para adicionar/remover itens — eles
-  aparecem automaticamente no site, sem tocar em HTML/CSS.
-- `js/main.js` — comportamento (menu, cursor, filtros, lightbox, animações)
+- `js/data.js` — conteúdo (tatuagens, piercings, cardápio de perfurações,
+  produtos, artistas, galeria, eventos, categorias, dados do studio). Edite
+  este arquivo para adicionar/remover itens — eles aparecem automaticamente
+  no site, sem tocar em HTML/CSS.
+- `js/main.js` — comportamento da home (colapso "ver mais", lightbox, render
+  dos dados, destaque de piercing/Thales, animações)
+- `js/artist.js` — comportamento das páginas de artista (perfil, trabalhos
+  e, na página do Thales, cardápio de perfurações e catálogo de produtos)
+- `js/common.js` — comportamento compartilhado (nav, menu, cursor, lightbox,
+  links de WhatsApp/Instagram)
 - `images/` — imagens usadas pelo site (logo, `images/deco/` com os
   respingos de spray/pichação usados como marca d'água decorativa)
 - `videos/` — vídeos usados pelo site (hero e bastidores)
 - `fonts/` — fonte Grapixoso (ver licença abaixo)
+
+## Conteúdo provisório
+
+Texto ou dado que ainda não tem material oficial (manifesto, eventos,
+valores de piercing, produtos etc.) aparece marcado com o selo visual
+"conteúdo provisório" / "valor a confirmar" (classe `.provisional-tag` em
+`css/style.css`) — a mesma lógica do selo "EM BREVE" já usado nas imagens
+placeholder. Substitua o texto/dado real em `js/data.js` (ou no HTML, no
+caso do texto do manifesto) e o selo deixa de aparecer.
 
 ## Adicionando fotos reais
 
@@ -62,6 +80,32 @@ um artista novo tem duas partes:
 Para remover um artista, apague a pasta `artista/<slug>/` e o item
 correspondente em `ARTISTS`.
 
+## Piercing — cardápio e catálogo do Thales
+
+A página `artista/thales/` é uma página de artista normal (mesmo template),
+mas com dois blocos extras só nela:
+
+1. **Cardápio de perfurações** — array `PIERCING_MENU` em `js/data.js`
+   (`name`, `region`, `price`). Deixe `price: null` para manter o selo
+   "valor a confirmar"; preencha com o valor real (ex. `"R$ 80"`) quando o
+   studio informar.
+2. **Joias & produtos** — array `PRODUCTS` em `js/data.js` (`name`,
+   `category`, `price`, `description`, `image`). É só um catálogo visual —
+   sem carrinho, pagamento ou controle de estoque. Cada card tem um botão
+   de WhatsApp com o nome do produto já preenchido na mensagem.
+
+Não invente valores, materiais ou características de joias nesses dois
+arrays — deixe `null` (selo "a confirmar"/"em atualização") até os dados
+reais chegarem.
+
+## Adicionando eventos
+
+A seção "Eventos Realizados" (`#eventos` na home) lê o array `EVENTS` em
+`js/data.js` (`title`, `type`, `date`, `description`, `image`). Adicione um
+evento real preenchendo esses campos — enquanto `date`/`description`/`image`
+ficarem `null`, o card mostra o selo "conteúdo provisório" e a textura de
+espera no lugar da foto.
+
 ## Publicação
 
 O site está hospedado via GitHub Pages em
@@ -75,7 +119,18 @@ raiz com o domínio, configurar o DNS, e trocar as URLs de
 
 ## Pendências
 
-- Adicionar fotos reais do studio, tatuagens e piercings
+Conteúdo aguardando material oficial do studio (ver seção "Conteúdo
+provisório" acima — tudo já está com espaço reservado no layout):
+
+- Logo/identidade visual definitiva e referências de marca
+- Texto final da Home e do Manifesto (`#manifesto` em `index.html`)
+- Vídeo e fotos reais do espaço (hero, bastidores, galeria)
+- Fotos, biografias, especialidades e portfólio de cada artista (`ARTISTS`,
+  `TATTOOS` em `js/data.js`)
+- Links de Instagram de cada artista (`instagram` em `ARTISTS`)
+- Valores e descrições das perfurações do Thales (`PIERCING_MENU`)
+- Fotos e informações das joias/produtos (`PRODUCTS`)
+- Fotos, datas e descrições dos eventos realizados (`EVENTS`)
 
 ## Desenvolvimento local
 
