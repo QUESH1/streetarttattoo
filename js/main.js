@@ -1,11 +1,11 @@
 /* ==========================================================================
    STREET ART TATTOO — comportamento da home
-   Colapso "ver mais" no mobile, render dos dados (data.js), grid de
-   artistas, destaque de piercing/Thales, eventos, vídeo do hero e
-   lazy-load do vídeo de bastidores. Nav, menu, cursor, reveal e lightbox
-   ficam em common.js (compartilhado com as páginas de artista). O
-   portfólio geral de tatuagens não existe mais aqui: cada artista mostra
-   seus próprios trabalhos na página dele (ver js/artist.js).
+   Colapso "ver mais" no mobile, render dos dados (data.js), carrossel de
+   artistas, destaque de piercing/Thales, eventos e vídeo do hero. Nav,
+   menu, cursor, reveal e lightbox ficam em common.js (compartilhado com as
+   páginas de artista). O portfólio geral de tatuagens não existe mais
+   aqui: cada artista mostra seus próprios trabalhos na página dele (ver
+   js/artist.js).
    ========================================================================== */
 (function () {
   "use strict";
@@ -147,11 +147,32 @@
     observeReveal(piercingGrid.querySelectorAll(".p-card"));
   }
 
-  /* ---------------- artistas grid ---------------- */
+  /* ---------------- artistas: carrossel ----------------
+     Mostra uma fatia de ARTISTS por vez (2 no mobile, 4 do resto pra cima),
+     girando sozinha em loop (setInterval) e também pelas setas — sempre em
+     looping por módulo, então nunca "acaba" num artista fixo como primeiro
+     ou último. Refaz a fatia inteira a cada passo/breakpoint em vez de
+     animar posições, mantendo a lógica simples. */
   const artistsGrid = document.getElementById("artistsGrid");
-  function renderArtists() {
+  const artistsPrevBtn = document.getElementById("artistsPrev");
+  const artistsNextBtn = document.getElementById("artistsNext");
+  const artistsCounterEl = document.getElementById("artistsCounter");
+  const artistsMQ = window.matchMedia("(max-width: 880px)");
+  let artistIndex = 0;
+
+  function pad2(n) {
+    return n < 10 ? "0" + n : String(n);
+  }
+  function getVisibleArtistCount() {
+    return Math.min(artistsMQ.matches ? 2 : 4, ARTISTS.length);
+  }
+  function renderArtistsSlice() {
     if (!artistsGrid) return;
-    ARTISTS.forEach((artist) => {
+    const total = ARTISTS.length;
+    const visibleCount = getVisibleArtistCount();
+    artistsGrid.innerHTML = "";
+    for (let i = 0; i < visibleCount; i++) {
+      const artist = ARTISTS[(artistIndex + i) % total];
       const img = el("img", {
         src: artist.photo || placeholderImage(artist.name, 640, 760),
         alt: artist.name,
@@ -165,52 +186,30 @@
       const card = el(
         "a",
         {
-          class: "artist-card reveal",
+          class: "artist-card in-view",
           href: `artista/${artist.slug}/`,
           "data-cursor": "Ver Perfil",
         },
         [el("div", { class: "artist-frame" }, [img, el("div", { class: "artist-shade" })]), info]
       );
       artistsGrid.appendChild(card);
-    });
-    observeReveal(artistsGrid.querySelectorAll(".artist-card"));
+    }
+    if (artistsCounterEl) artistsCounterEl.textContent = `${pad2(artistIndex + 1)} / ${pad2(total)}`;
   }
-
-  /* ---------------- studio gallery ---------------- */
-  const galleryGrid = document.getElementById("galleryGrid");
-  function renderGallery() {
-    if (!galleryGrid) return;
-    const photos = GALLERY.filter((g) => g.type === "photo");
-    GALLERY.forEach((item, i) => {
-      const wide = i % 5 === 0;
-      const img = el("img", {
-        src: item.image || placeholderImage(item.title, 800, wide ? 500 : 1000),
-        alt: item.title,
-        loading: "lazy",
-        decoding: "async",
-      });
-      const wrap = el(
-        "div",
-        {
-          class: "g-item reveal" + (wide ? " is-wide" : ""),
-          "data-cursor": "View",
-          tabindex: "0",
-          role: "button",
-          "aria-label": `Ver ${item.title}`,
-        },
-        [img]
-      );
-      const open = () => openLightbox(photos, photos.indexOf(item));
-      wrap.addEventListener("click", open);
-      wrap.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          open();
-        }
-      });
-      galleryGrid.appendChild(wrap);
-    });
-    observeReveal(galleryGrid.querySelectorAll(".g-item"));
+  function stepArtists(delta) {
+    const total = ARTISTS.length;
+    artistIndex = (artistIndex + delta + total) % total;
+    renderArtistsSlice();
+  }
+  function initArtistsCarousel() {
+    if (!artistsGrid) return;
+    renderArtistsSlice();
+    if (artistsPrevBtn) artistsPrevBtn.addEventListener("click", () => stepArtists(-1));
+    if (artistsNextBtn) artistsNextBtn.addEventListener("click", () => stepArtists(1));
+    artistsMQ.addEventListener("change", renderArtistsSlice);
+    if (!window.STA.reduceMotion && ARTISTS.length > getVisibleArtistCount()) {
+      setInterval(() => stepArtists(1), 4000);
+    }
   }
 
   /* ---------------- eventos realizados ---------------- */
@@ -279,58 +278,14 @@
     observeReveal(instagramGrid.querySelectorAll(".ig-item"));
   }
 
-  /* ---------------- lazy-load + play the bastidores video ----------------
-     Um único observer: na primeira vez que o vídeo entra em tela, troca a
-     fonte e só chama play() quando o vídeo sinaliza que já tem dados pra
-     reproduzir (evento loadeddata) — chamar play() antes disso falha
-     silenciosamente e só "resolve" numa rolagem seguinte. */
-  const experienceVideo = document.getElementById("experienceVideo");
-  let experienceVisible = false;
-  if (experienceVideo) {
-    const sources = experienceVideo.querySelectorAll("source[data-src]");
-    let sourceLoaded = false;
-
-    const tryPlay = () => experienceVideo.play().catch(() => {});
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            experienceVisible = false;
-            experienceVideo.pause();
-            return;
-          }
-          experienceVisible = true;
-          if (sourceLoaded) {
-            tryPlay();
-            return;
-          }
-          sourceLoaded = true;
-          sources.forEach((s) => {
-            s.src = s.getAttribute("data-src");
-          });
-          experienceVideo.addEventListener("loadeddata", tryPlay, { once: true });
-          experienceVideo.load();
-        });
-      },
-      { threshold: 0.15 }
-    );
-    io.observe(experienceVideo);
-  }
-
-  /* ---------------- destrava autoplay dos vídeos de fundo no iOS ----------------
+  /* ---------------- destrava autoplay do hero no iOS ----------------
      Com o Modo de Baixo Consumo ativo, o iOS bloqueia autoplay (mesmo mudo)
-     até um gesto real do usuário — e cada vídeo pode precisar do seu próprio
-     gesto, não só o primeiro da página inteira (o hero pode já ter "gasto"
-     o primeiro toque antes do vídeo de bastidores sequer entrar em tela).
-     Por isso o listener fica ativo a cada interação, não só uma vez. */
+     até um gesto real do usuário. Por isso o listener fica ativo a cada
+     interação, não só uma vez. */
   function resumeBackgroundVideos() {
     if (heroVideoEl && heroVideoEl.paused) {
       heroVideoEl.muted = true;
       heroVideoEl.play().catch(() => {});
-    }
-    if (experienceVideo && experienceVisible && experienceVideo.paused) {
-      experienceVideo.play().catch(() => {});
     }
   }
   ["touchstart", "touchend", "click", "scroll", "keydown"].forEach((evt) =>
@@ -340,8 +295,7 @@
   /* ---------------- init ---------------- */
   renderPiercingSpotlight();
   renderPiercing();
-  renderArtists();
-  renderGallery();
+  initArtistsCarousel();
   renderEvents();
   renderInstagram();
   setupGridCollapse("piercingGridWrap", "piercingMoreBtn", 3);

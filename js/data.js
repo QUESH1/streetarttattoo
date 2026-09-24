@@ -335,19 +335,6 @@ const EVENTS = [
   { id: "ev-04", title: "Música ao Vivo", type: "Música", date: null, description: null, image: null },
 ];
 
-/* type: "photo" ou "video" — para vídeo, use "src" (mp4) e "poster" opcional.
-   O vídeo de bastidores já aparece em destaque na seção Experiência, então
-   a galeria do studio abaixo é só fotografia do espaço. */
-const GALLERY = [
-  { id: "gl-01", title: "Fachada", type: "photo", image: null },
-  { id: "gl-02", title: "Recepção", type: "photo", image: null },
-  { id: "gl-03", title: "Sala de tatuagem", type: "photo", image: null },
-  { id: "gl-04", title: "Bancada e equipamentos", type: "photo", image: null },
-  { id: "gl-05", title: "Paredes e obras", type: "photo", image: null },
-  { id: "gl-06", title: "Detalhes", type: "photo", image: null },
-  { id: "gl-07", title: "Artistas em ação", type: "photo", image: null },
-];
-
 const INSTAGRAM_POSTS = [
   { id: "ig-01", caption: "Novo trampo saindo do forno", image: null },
   { id: "ig-02", caption: "Processo em blackwork", image: null },
