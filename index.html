@@ -74,7 +74,6 @@
       <a href="#studio">Studio</a>
       <a href="#artistas">Artistas</a>
       <a href="#piercing">Piercing</a>
-      <a href="#galeria">Galeria</a>
       <a href="#eventos">Eventos</a>
       <a href="#contato">Contato</a>
     </nav>
@@ -91,9 +90,8 @@
     <a href="#studio" data-num="01">Studio</a>
     <a href="#artistas" data-num="02">Artistas</a>
     <a href="#piercing" data-num="03">Piercing</a>
-    <a href="#galeria" data-num="04">Galeria</a>
-    <a href="#eventos" data-num="05">Eventos</a>
-    <a href="#contato" data-num="06">Contato</a>
+    <a href="#eventos" data-num="04">Eventos</a>
+    <a href="#contato" data-num="05">Contato</a>
   </nav>
   <a class="btn btn-accent" href="#contato">Agendar</a>
   <div class="mobile-menu-foot">
@@ -133,22 +131,14 @@
   <!-- STUDIO -->
   <section class="section studio" id="studio">
     <span class="tag-watermark studio-tag" aria-hidden="true">RUA</span>
-    <div class="studio-wall reveal" aria-hidden="true">
-      <div class="wall-item wall-a"><div class="ph-texture" data-label="Foto do studio em breve"></div></div>
-      <div class="wall-item wall-b"><div class="ph-texture" data-label="Foto em breve"></div></div>
-      <div class="wall-item wall-c"><div class="ph-texture" data-label="Foto em breve"></div></div>
-      <div class="wall-tape" style="top:-10px;left:14%;transform:rotate(-8deg)"></div>
-      <div class="wall-tape" style="top:6%;right:6%;transform:rotate(10deg)"></div>
-      <div class="wall-sticker">
-        <img src="images/logo.png" alt="" width="72" height="72">
-      </div>
+    <div class="studio-photo reveal" aria-hidden="true">
+      <div class="ph-texture" data-label="Foto do studio em breve"></div>
     </div>
     <div class="studio-text reveal">
       <span class="eyebrow">/ O Studio</span>
       <h2 class="section-title">Street Art Tattoo</h2>
-      <p>Um estúdio que nasce da rua: graffiti, pixo, lambe-lambe e a estética crua do concreto viram linguagem visual — e, na pele, viram tatuagem. Cada artista do coletivo traz sua própria assinatura, do traço fino ao blackwork mais denso.</p>
-      <p>Body piercing com o mesmo cuidado técnico e a mesma atitude: joias de qualidade, material biocompatível e procedimento seguro, sem perder a identidade street que dá nome ao studio.</p>
-      <p class="studio-quote">"A parede é temporária. A pele, não."</p>
+      <p>Texto em breve.</p>
+      <p class="studio-quote">Frase em breve.</p>
     </div>
     <span class="deco deco-splatter studio-deco-splatter" aria-hidden="true"></span>
   </section>
@@ -162,12 +152,6 @@
       <h2 class="section-title">Nosso Manifesto</h2>
     </div>
     <p class="manifesto-text reveal">Texto do manifesto em atualização. Aqui vai falar sobre a origem do StreetArt como espaço cultural e urbano de Belo Horizonte, sua relação com o graffiti e a arte de rua, e o que move o coletivo por trás da tinta e da agulha.</p>
-    <ul class="values-grid reveal" aria-label="Valores do StreetArt">
-      <li class="value-pill">Atitude de rua</li>
-      <li class="value-pill">Técnica e cuidado</li>
-      <li class="value-pill">Comunidade</li>
-      <li class="value-pill">Arte que fica</li>
-    </ul>
     <span class="deco deco-circle manifesto-deco-circle" aria-hidden="true"></span>
   </section>
 
@@ -179,7 +163,15 @@
       <h2 class="section-title">Artistas</h2>
       <p class="artists-intro">Cada artista do studio tem assinatura própria. Clique num perfil e conheça o trabalho e o estilo de cada um.</p>
     </div>
-    <div class="artists-grid" id="artistsGrid"></div>
+    <div class="artists-carousel">
+      <button class="carousel-arrow carousel-prev" id="artistsPrev" type="button" aria-label="Artista anterior">&lsaquo;</button>
+      <div class="artists-grid" id="artistsGrid"></div>
+      <button class="carousel-arrow carousel-next" id="artistsNext" type="button" aria-label="Próximo artista">&rsaquo;</button>
+    </div>
+    <div class="artists-carousel-meta">
+      <span class="artists-carousel-caption">Carrossel em loop contínuo — gira sozinho e não fixa preferência entre artistas</span>
+      <span class="artists-carousel-counter" id="artistsCounter"></span>
+    </div>
     <span class="deco deco-splatter-soft artists-deco-splatter" aria-hidden="true"></span>
   </section>
 
@@ -210,28 +202,6 @@
     </div>
     <span class="deco deco-drip piercing-deco-drip" aria-hidden="true"></span>
     <span class="deco deco-zigzag piercing-deco-zigzag" aria-hidden="true"></span>
-  </section>
-
-  <!-- EXPERIÊNCIA / BASTIDORES + GALERIA DO STUDIO — o vídeo de bastidores
-       é o fundo contínuo por trás de toda a seção, ligando os bastidores
-       ao espaço físico mostrado logo abaixo. -->
-  <section class="section experience" id="galeria">
-    <video class="experience-video" id="experienceVideo" muted loop playsinline preload="none" aria-hidden="true">
-      <source data-src="videos/bastidores.mp4" type="video/mp4">
-    </video>
-    <div class="experience-overlay"></div>
-    <div class="experience-content reveal">
-      <span class="eyebrow">/ Bastidores</span>
-      <h2 class="section-title">Dentro do Studio</h2>
-    </div>
-    <div class="gallery-wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">/ Galeria</span>
-        <h2 class="section-title">O Espaço</h2>
-      </div>
-      <div class="gallery-grid" id="galleryGrid"></div>
-      <span class="deco deco-star gallery-deco-star" aria-hidden="true"></span>
-    </div>
   </section>
 
   <!-- EVENTOS REALIZADOS -->

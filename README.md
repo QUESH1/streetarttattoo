@@ -8,25 +8,27 @@ via GitHub Pages ou qualquer servidor estático.
 
 ## Estrutura
 
-- `index.html` — página principal (apresentação, manifesto, artistas,
-  destaque de piercing, galeria do espaço, eventos, instagram e contato)
+- `index.html` — página principal (apresentação, manifesto, carrossel de
+  artistas, destaque de piercing, eventos, instagram e contato)
 - `artista/<slug>/index.html` — página própria de cada artista, incluindo
   `artista/thales/` (perfil + cardápio de perfurações + catálogo de joias)
 - `css/style.css` — estilos
 - `js/data.js` — conteúdo (tatuagens, piercings, cardápio de perfurações,
-  produtos, artistas, galeria, eventos, categorias, dados do studio). Edite
-  este arquivo para adicionar/remover itens — eles aparecem automaticamente
-  no site, sem tocar em HTML/CSS.
-- `js/main.js` — comportamento da home (colapso "ver mais", lightbox, render
-  dos dados, destaque de piercing/Thales, animações)
+  produtos, artistas, eventos, categorias, dados do studio). Edite este
+  arquivo para adicionar/remover itens — eles aparecem automaticamente no
+  site, sem tocar em HTML/CSS.
+- `js/main.js` — comportamento da home (colapso "ver mais", lightbox,
+  carrossel de artistas, destaque de piercing/Thales, animações)
 - `js/artist.js` — comportamento das páginas de artista (perfil, trabalhos
   e, na página do Thales, cardápio de perfurações e catálogo de produtos)
 - `js/common.js` — comportamento compartilhado (nav, menu, cursor, lightbox,
   links de WhatsApp/Instagram)
 - `images/` — imagens usadas pelo site (logo, `images/deco/` com os
   respingos de spray/pichação usados como marca d'água decorativa)
-- `videos/` — vídeos usados pelo site (hero e bastidores)
+- `videos/` — vídeo do hero (`videos/hero.mp4`)
 - `fonts/` — fonte Grapixoso (ver licença abaixo)
+- `manifesto/` — PDFs de biografia enviados pelo estúdio (fonte do texto
+  usado em `ARTISTS`, ver `js/data.js`)
 
 ## Conteúdo provisório
 
@@ -39,16 +41,15 @@ caso do texto do manifesto) e o selo deixa de aparecer.
 
 ## Adicionando fotos reais
 
-Todo o portfólio de tatuagens, piercings, galeria do studio e o mural do
-"O Studio" estão hoje com uma textura de espera ("FOTO EM BREVE") gerada
-automaticamente, porque ainda não há fotos reais do trabalho do estúdio
-neste repositório.
+Todo o portfólio de tatuagens, piercings e a foto do "O Studio" estão hoje
+com uma textura de espera ("FOTO EM BREVE") gerada automaticamente, porque
+ainda não há fotos reais do trabalho do estúdio neste repositório.
 
 Para trocar por uma foto real:
 
 1. Coloque o arquivo otimizado (WebP/JPG) dentro de `images/` (crie
    subpastas como `images/portfolio/`, `images/piercing/`,
-   `images/galeria/` se preferir organizar).
+   `images/artistas/` se preferir organizar).
 2. Em `js/data.js`, troque `image: null` pelo caminho do arquivo, ex.:
    `image: "images/portfolio/blackwork-01.jpg"`.
 3. Pronto — o item passa a exibir a foto real automaticamente.
@@ -123,8 +124,10 @@ Conteúdo aguardando material oficial do studio (ver seção "Conteúdo
 provisório" acima — tudo já está com espaço reservado no layout):
 
 - Logo/identidade visual definitiva e referências de marca
-- Texto final da Home e do Manifesto (`#manifesto` em `index.html`)
-- Vídeo e fotos reais do espaço (hero, bastidores, galeria)
+- Texto final da Home, do Manifesto (`#manifesto`) e do Studio (`#studio`,
+  hoje "Texto em breve." em `index.html`)
+- Vídeo/foto real do hero e foto do Studio (uma foto grande, ex. o grupo
+  de artistas reunido)
 - Biografia de Lari, Yoki, Bevilaqua, Arthur e Thaylane (`ARTISTS` em
   `js/data.js` — as outras 9 já vieram de `manifesto/Biografia_*.pdf`)
 - Fotos, especialidades e portfólio de cada artista (`ARTISTS`, `TATTOOS`
