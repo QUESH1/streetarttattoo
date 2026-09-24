@@ -57,7 +57,7 @@ Para trocar por uma foto real:
 
 O studio tem uma aba "Artistas" (`#artistas` na home) com um card por
 artista, e cada um tem sua própria página em
-`artista/<slug>/index.html` — ex.: `streetarttattoo/artista/joao-rua/`.
+`artista/<slug>/index.html` — ex.: `streetarttattoo/artista/thales/`.
 Não há build step nem geração automática dessas páginas, então adicionar
 um artista novo tem duas partes:
 
@@ -70,7 +70,7 @@ um artista novo tem duas partes:
    trabalhos aparecerem automaticamente na seção "Trabalhos" do perfil
    dele.
 2. **Página** — crie a pasta `artista/<slug>/` e copie o `index.html` de
-   qualquer artista já existente (ex. `artista/joao-rua/index.html`) para
+   qualquer artista já existente (ex. `artista/thales/index.html`) para
    dentro dela. O conteúdo do perfil (nome, foto, bio, trabalhos) é
    preenchido em tempo de execução por `js/artist.js`, a partir do
    `data-artist-slug` no `<body>` — troque só esse atributo e os campos de
@@ -125,8 +125,10 @@ provisório" acima — tudo já está com espaço reservado no layout):
 - Logo/identidade visual definitiva e referências de marca
 - Texto final da Home e do Manifesto (`#manifesto` em `index.html`)
 - Vídeo e fotos reais do espaço (hero, bastidores, galeria)
-- Fotos, biografias, especialidades e portfólio de cada artista (`ARTISTS`,
-  `TATTOOS` em `js/data.js`)
+- Biografia de Lari, Yoki, Bevilaqua, Arthur e Thaylane (`ARTISTS` em
+  `js/data.js` — as outras 9 já vieram de `manifesto/Biografia_*.pdf`)
+- Fotos, especialidades e portfólio de cada artista (`ARTISTS`, `TATTOOS`
+  em `js/data.js`)
 - Links de Instagram de cada artista (`instagram` em `ARTISTS`)
 - Valores e descrições das perfurações do Thales (`PIERCING_MENU`)
 - Fotos e informações das joias/produtos (`PRODUCTS`)
