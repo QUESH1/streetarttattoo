@@ -36,7 +36,8 @@
   }
 
   document.title = `${artist.name} — Street Art Tattoo`;
-  const desc = `${artist.name}, ${artist.role} no Street Art Tattoo — ${artist.specialties.join(", ")}.`;
+  const specialtiesSuffix = artist.specialties.length ? ` — ${artist.specialties.join(", ")}` : "";
+  const desc = `${artist.name}, ${artist.role} no Street Art Tattoo${specialtiesSuffix}.`;
   const canonicalUrl = `https://quesh1.github.io/streetarttattoo/artista/${artist.slug}/`;
 
   const metaDesc = document.querySelector('meta[name="description"]');
